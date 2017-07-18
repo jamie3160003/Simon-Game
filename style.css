@@ -1,5 +1,10 @@
+body{
+    background-color: #006080;
+}
+
 .container{
     width:600px;
+    background-color: #0099cc;
     display:flex;
     flex-direction: column;
     margin:auto;
@@ -13,6 +18,7 @@
 
 .title {
     text-align: center;
+    color: white;
     border: black 2px solid;
 }
 
@@ -38,6 +44,7 @@
 .option p{
     border: blue 2px solid;
     margin:auto;
+    color:white;
 }
 
 
@@ -63,7 +70,8 @@
 
 .color-1{ /*green*/
     border-radius: 100% 0 0 0;
-    background-color: #00ff00;
+    background-color: #008000;
+    transition: 0.2s;
 }
 
 .color-2{ /*red*/
@@ -77,6 +85,27 @@
 }
 
 .color-4{ /*blue*/
+    border-radius: 0 0 100% 0;
+    background-color: #0000ff;
+}
+
+.color-1-press{ /*green*/
+    border-radius: 100% 0 0 0;
+    background-color: #00ff00;
+    transition: 0.2s;
+}
+
+.color-2-press{ /*red*/
+    border-radius: 0 100% 0 0;
+    background-color: #ff0000;
+}
+
+.color-3-press{ /*yellow*/
+    border-radius: 0 0 0 100%;
+    background-color: #ffff00;
+}
+
+.color-4-press{ /*blue*/
     border-radius: 0 0 100% 0;
     background-color: #0000ff;
 }
