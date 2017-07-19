@@ -19,13 +19,15 @@ body{
 .title {
     text-align: center;
     color: white;
-    border: black 2px solid;
+    font-size: 150%;
+    font-family: Arial;
+
 }
 
 .menu{
     width:500px;
     height:100px;
-    border: blue 2px solid;
+
     margin:auto;
     display: flex;
     justify-content: center;
@@ -33,26 +35,28 @@ body{
 }
 
 .menu .option{
-    border: gray 2px solid;
+
     width: 80px;
     height:40px;
     margin:auto;
     display: flex;
+    flex-direction: column;
+    padding:10px;
     text-align: center;
     background-color: #333333;
+    border-radius: 20%;
+    box-shadow: 0 4px 4px black;
 }
 
 .menu .start{
     cursor: pointer;
 }
 
-.menu .on-off,
-.menu .strict{
-    display: block;
+.menu .switch{
+    margin:auto;
 }
 
 .option p{
-    border: blue 2px solid;
     margin:auto;
     color:white;
 }
@@ -148,7 +152,8 @@ body{
 	text-decoration:none;
 	color:#fff;
 	position:relative;
-	border-radius: 5px;
+	border-radius: 20%;
+    font-size:150%;
 	box-shadow: inset 0px 1px 0px  #b32d00, 0px 5px 0px 0px  #b32d00, 0px 10px 5px #999;
 }
 
