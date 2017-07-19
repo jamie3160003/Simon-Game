@@ -1,129 +1,182 @@
 var global = {
     sequence : [],
     playerInput : [],
-    waitForInput : false,
-    length : 0,
-    curLength : 0
+    waitForInput: false,
+    length:0,
+    curLength:0,
+    replay:false
 }
 
 $(document).ready(function(){
-    computer();
-    $(".color-1").click(function(){
-        var promise = new Promise(function(resolve,reject){
-            global.waitForInput = false;
-            pressGreen();
-            resolve("success");
-        });
-        promise.then(function(){
-            global.playerInput.push(0);
-            if(global.playerInput[global.curLength] == global.sequence[global.curLength] ) global.curLength++;
-            else again();
-            if(global.curLength == global.sequence.length) {
-                computer();
-            }else global.waitForInput = true;
-        });
-    });
-    $(".color-2").click(function(){
-        var promise = new Promise(function(resolve,reject){
-            global.waitForInput = false;
-            pressRed();
-            resolve("success");
-        });
-        promise.then(function(){
-            global.playerInput.push(1);
-            if(global.playerInput[global.curLength] == global.sequence[global.curLength] ) global.curLength++;
-            else again();
-            if(global.curLength == global.sequence.length) {
-                computer();
-            }else global.waitForInput = true;
-        });
+    reset();
+    start(computer());
 
-    });
-    $(".color-3").click(function(){
+//---------------Green------------------
+    $(".color-1").mousedown(function(){
         if(global.waitForInput){
-            var promise = new Promise(function(resolve,reject){
-                global.waitForInput = false;
-                pressYellow();
-                resolve("success");
-            });
-            promise.then(function(){
-                global.playerInput.push(2);
-                if(global.playerInput[global.curLength] == global.sequence[global.curLength] ) global.curLength++;
-                else again();
-                if(global.curLength == global.sequence.length) {
-                    computer();
-                }else global.waitForInput = true;
-            });
-
+            lightOn(1);
         }
-
     });
-    $(".color-4").click(function(){
-        var promise = new Promise(function(resolve,reject){
-            global.waitForInput = false;
-            pressBlue();
-            resolve("success");
-        });
+    $(".color-1").mouseup(function(){
+        var promise = lightOff(1);
         promise.then(function(){
-            global.playerInput.push(3);
-            if(global.playerInput[global.curLength] == global.sequence[global.curLength] ) global.curLength++;
-            else again();
-            if(global.curLength == global.sequence.length) {
-                computer();
-            }else global.waitForInput = true;
+            check();
         });
+    });
+//---------------Red------------------
+    $(".color-2").mousedown(function(){
+        if(global.waitForInput){
+            lightOn(2);
+        }
+    });
+    $(".color-2").mouseup(function(){
+        var promise = lightOff(2);
+        promise.then(function(){
+            check();
+        });
+    });
+//---------------Yellow------------------
+    $(".color-3").mousedown(function(){
+        if(global.waitForInput){
+            lightOn(3);
+        }
+    });
+    $(".color-3").mouseup(function(){
+        var promise = lightOff(3);
+        promise.then(function(){
+            check();
+        });
+    });
+//---------------Blue-----------------
+    $(".color-4").mousedown(function(){
+        if(global.waitForInput){
+            lightOn(4);
+        }
+    });
+    $(".color-4").mouseup(function(){
+        var promise = lightOff(4);
+        promise.then(function(){
+            check();
+        });
+    });
 
+    $("body").mouseup(function(){
+        AllLightOff();
     });
 });
 
-//-----------function-------------
+//-----------main function-------------
 
 
-var computer = function(repeat){
-    var num = Math.floor(Math.random()*4);
-    global.sequence.push(num);
-    var i = 0;
-    var interval = setInterval(function(){
-        var num = global.sequence[i++];
-        if(num == 0) pressGreen();
-        else if(num == 1) pressRed();
-        else if(num == 2) pressYellow();
-        else if(num == 3) pressBlue();
-        if( i >= global.sequence.length) clearInterval(interval);
-    },1000);
+var computer = function(){
+    return new Promise(function(resolve, reject){
 
-    global.waitForInput = true;
-    global.curLength = 0;
+        var promise;
+        var sequence = global.sequence;
+
+        if(!global.replay) {
+            var num = Math.floor(Math.random()*4);
+            sequence.push(num);
+        }
+        console.log(sequence);
+        var i = 0;
+        var interval = setInterval(function(){
+            num = sequence[i++];
+            switch(num){
+                case 0:
+                    lightOn(1);
+                    promise = lightOff(1);
+                    break;
+                case 1:
+                    lightOn(2);
+                    promise = lightOff(2);
+                    break;
+                case 2:
+                    lightOn(3);
+                    promise = lightOff(3);
+                    break;
+                case 3:
+                    lightOn(4);
+                    promise = lightOff(4);
+                    break;
+            }
+
+            promise.then(function(){
+                if( i >= sequence.length) {
+                    clearInterval(interval);
+                    resolve("success");
+                }
+
+            });
+
+        },1000);
+
+    });
+
+
 }
+
+var start = function(promise){
+
+    promise.then(function(){
+        global.waitForInput = true;
+        global.curLength = 0;
+        global.playerInput = [];
+    })
+
+}
+
+var check = function(){
+    if(global.playerInput[global.curLength] == global.sequence[global.curLength]) {
+        global.curLength++;
+        console.log("1");
+        if(global.curLength == global.sequence.length) {
+            console.log("2");
+            global.replay = false;
+            global.waitForInput = false;
+            start(computer());
+        }
+    }
+
+    else {
+        console.log("3");
+        global.replay = true;
+        computer();
+    }
+}
+
+
 
 
 
 //------------lights effect-----------
-var pressGreen = function(){
-    $(".color-1").addClass("color-1-press");
-    setTimeout(function(){
-        $(".color-1").removeClass("color-1-press");
-    },500);
+var lightOn = function(color){
+    $(".color-" + color).addClass("color-"+ color +"-press");
+    global.playerInput.push(color-1);
 };
 
+var lightOff = function(color){
+    return new Promise(function(resolve, reject){
+        setTimeout(function(){
+            $(".color-" + color).removeClass("color-"+ color +"-press");
+            resolve("finished");
+        },200);
+    });
 
-var pressRed = function(){
-    $(".color-2").addClass("color-2-press");
-    setTimeout(function(){
-        $(".color-2").removeClass("color-2-press");
-    },500);
-};
 
-var pressYellow = function(){
-    $(".color-3").addClass("color-3-press");
-    setTimeout(function(){
-        $(".color-3").removeClass("color-3-press");
-    },500);
-};
+}
 
-var pressBlue = function(){
-    $(".color-4").addClass("color-4-press");
-    setTimeout(function(){
-        $(".color-4").removeClass("color-4-press");
-    },500);
+var AllLightOff = function(){
+    for(var i = 0; i < 4; i++){
+        lightOff(i+1);
+    }
 };
+//-----------reset-------------------
+var reset = function(){
+    global.sequence = [];
+    global.playerInput = [];
+    global.waitForInput = true;
+    global.length = 0;
+    global.curLength = 0;
+    global.replay = false;
+}
