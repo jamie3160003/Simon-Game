@@ -8,12 +8,12 @@ body{
     display:flex;
     flex-direction: column;
     margin:auto;
-    border: black 2px solid;
+    box-shadow:  0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 
 }
 
 .container-1, .container-2{
-    border: yellow 2px solid;
+
 }
 
 .title {
@@ -50,13 +50,14 @@ body{
 
 .board{
 
-    border: blue 2px solid;
+    border: black 10px solid;
     height:500px;
     width:500px;
     margin-top: 5%;
     border-radius: 100%;
     box-sizing: border-box;
     margin:auto;
+    box-shadow:  0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .board .color{
@@ -76,36 +77,40 @@ body{
 
 .color-2{ /*red*/
     border-radius: 0 100% 0 0;
-    background-color: #ff0000;
+    background-color: #990000;
 }
 
 .color-3{ /*yellow*/
     border-radius: 0 0 0 100%;
-    background-color: #ffff00;
+    background-color: #999900;
 }
 
 .color-4{ /*blue*/
     border-radius: 0 0 100% 0;
-    background-color: #0000ff;
+    background-color: #000099;
 }
 
 .color-1-press{ /*green*/
-    border-radius: 100% 0 0 0;
     background-color: #00ff00;
-    transition: 0.2s;
 }
 
 .color-2-press{ /*red*/
-    border-radius: 0 100% 0 0;
     background-color: #ff0000;
 }
 
 .color-3-press{ /*yellow*/
-    border-radius: 0 0 0 100%;
     background-color: #ffff00;
 }
 
 .color-4-press{ /*blue*/
-    border-radius: 0 0 100% 0;
     background-color: #0000ff;
+}
+
+@keyframes greenPress {
+    from{
+        background-color: #008000;
+    }
+    to{
+        background-color: #00ff00;
+    }
 }
