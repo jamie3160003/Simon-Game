@@ -8,6 +8,12 @@
         <script type="text/javascript" src="./main.js"></script>
     </head>
     <body>
+
+        <audio id="sound-1" src="https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"></audio>
+        <audio id="sound-2" src="https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"></audio>
+        <audio id="sound-3" src="https://s3.amazonaws.com/freecodecamp/simonSound3.mp3"></audio>
+        <audio id="sound-4" src="https://s3.amazonaws.com/freecodecamp/simonSound4.mp3"></audio>
+
         <div class="container">
 
             <div class="container-1">
@@ -24,14 +30,23 @@
 
                     <div class="strict option">
                         <p>Strict Mode</p>
+                        <label class="switch">
+                            <input class="checkbox" type="checkbox">
+                            <span class="slider"></span>
+                        </label>
                     </div>
 
                     <div class="count option">
                         <p>Count</p>
+                        <p id="number">--</p>
                     </div>
 
                     <div class="on-off option">
                         <p>On-Off</p>
+                        <label class="switch">
+                            <input class="checkbox" type="checkbox">
+                            <span class="slider"></span>
+                        </label>
                     </div>
 
 
@@ -42,6 +57,10 @@
             <div class="container-2">
 
                 <div class="board">
+
+                    <div class="wrong-ans">
+                        <p>Wrong Answer!</p>
+                    </div>
 
                     <div class="color color-1">
 

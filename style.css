@@ -39,6 +39,16 @@ body{
     margin:auto;
     display: flex;
     text-align: center;
+    background-color: #333333;
+}
+
+.menu .start{
+    cursor: pointer;
+}
+
+.menu .on-off,
+.menu .strict{
+    display: block;
 }
 
 .option p{
@@ -49,7 +59,7 @@ body{
 
 
 .board{
-
+    position: relative;
     border: black 10px solid;
     height:500px;
     width:500px;
@@ -60,11 +70,30 @@ body{
     box-shadow:  0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
+.board .wrong-ans{
+    z-index: -1;
+    position: absolute;
+    width:200px;
+    height:150px;
+    top:50%;
+    left:50%;
+    margin-top:-75px;
+    margin-left:-100px;
+    display: flex;
+    border: black 5px solid;
+    background-color: #e60000;
+}
+
+.wrong-ans p{
+    margin:auto;
+    text-align: center;
+    font-size:300%;
+}
+
 .board .color{
     width:50%;
     height:50%;
     float:left;
-    border: green 2px solid;
     box-sizing: border-box;
 
 }
@@ -106,11 +135,69 @@ body{
     background-color: #0000ff;
 }
 
-@keyframes greenPress {
-    from{
-        background-color: #008000;
-    }
-    to{
-        background-color: #00ff00;
-    }
+/*//-----button effect--------//*/
+.start p{
+    width:80%;
+  margin:auto;
+}
+.menu .start{
+    display:flex;
+    margin:auto;
+	background-color:#ff4000;
+	font-family: 'Open Sans', sans-serif;
+	text-decoration:none;
+	color:#fff;
+	position:relative;
+	border-radius: 5px;
+	box-shadow: inset 0px 1px 0px  #b32d00, 0px 5px 0px 0px  #b32d00, 0px 10px 5px #999;
+}
+
+.menu .start:active{
+	top:3px;
+	box-shadow: inset 0px 1px 0px #9e8d84, 0px 2px 0px 0px #322620, 0px 5px 3px #999;
+}
+/*//-------------toggle switch---------------------*/
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 15px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(25px);
+  -ms-transform: translateX(25px);
+  transform: translateX(25px);
 }
